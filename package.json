@@ -1,0 +1,15 @@
+{
+  "name": "movies-app",
+  "version": "1.0.0",
+  "description": "MirosMovies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MiroslavPopovich",
+  "license": "MIT",
+  "dependencies": {
+    "lit-html": "^3.1.0",
+    "page": "^1.11.6"
+  }
+}
