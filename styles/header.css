@@ -1,0 +1,38 @@
+.header {
+    height: 5.5em;
+    width: 100%;
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
+
+header .container,
+header .navigation ul {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+header .container {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.search-bar {
+    width: 45%;
+    background-color: var(--BGCOLOR-LIGHT);
+    border-radius: var(--BORDER-RADIOS);
+    padding: var(--PADDING-SEARCH);
+}
+
+.search-bar input[type="search"] {
+    background-color: transparent;
+    width: 85%;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+    color: var(--FONT-COLOR-DARK);
+}
+
+.search-bar input[type="search"]::placeholder {
+    color: var(--FONT-COLOR-GRAY);
+}
