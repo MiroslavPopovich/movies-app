@@ -1,0 +1,21 @@
+.footer {
+    height: 5.5em;
+    width: 100%;
+    position: relative;
+    bottom: -5rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+}
+
+.footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.footer .container a:hover {
+    color: var(--BGCOLOR-PRIMARY);
+}
