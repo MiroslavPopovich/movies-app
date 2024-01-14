@@ -65,3 +65,19 @@ body {
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
+
+.card {
+    width: 20%;
+    margin: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: var(--BORDER-RADIOS);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 10px;
+    max-width: 18rem;
+}
+
+.card-body-s {
+    padding: 0.6rem;
+    flex: 1 1 auto;
+}

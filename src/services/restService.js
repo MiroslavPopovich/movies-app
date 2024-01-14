@@ -1,7 +1,8 @@
 import { getUserData } from "./util.js";
+import * as keys from "./apiKeys.js";
 const host = "https://parseapi.back4app.com";
-const applicationId = "";
-const restApiKey = "";
+const applicationId = keys.APPLICATION_ID;
+const restApiKey = keys.REST_API_KEY;
 
 async function request(url, options) {
     try {
@@ -13,9 +14,9 @@ async function request(url, options) {
         const result = await response.json();
         return result;
     } catch (err) {
-        throw err; 
+        throw err;
+    }
 }
-
 function createOption(method = "GET", data) {
     const options = {
         method,

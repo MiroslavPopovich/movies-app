@@ -1,0 +1,74 @@
+.main {
+    position: relative;
+    top: 5.2rem;
+    min-height: 85vh;
+}
+
+.main .container {
+    min-height: 85vh;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    overflow: hidden;
+    position: relative;
+}
+
+.home {
+    gap: 6rem;
+    min-height: 85vh;
+    background-color: rgba(220, 53, 43);
+}
+.home section {
+    padding-top: 18rem;
+    color: rgb(47, 44, 52);
+}
+.home section h1 {
+    margin-bottom: 2rem;
+    font-size: 4rem;
+}
+
+.home section p {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+.home section p:nth-child(2) {
+    padding-left: 3rem;
+}
+
+.home section p:nth-child(3) {
+    padding-left: 6rem;
+}
+
+.home .h-a {
+    color: red;
+    min-height: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 5rem;
+}
+
+.home .h-a a {
+    color: var(--FONT-COLOR-GRAY);
+}
+
+.home .h-a a:hover {
+    color: var(--FONT-COLOR-DARK);
+    font-weight: bolder;
+}
+
+.home figure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 103%;
+    height: 200px;
+    border: 1px solid transparent;
+    overflow: hidden;
+    box-shadow: rgb(47, 44, 52) 0px 10px 30px;
+    border-radius: 0 0 40% 40%;
+}
+
+.home figure img {
+    width: 100%;
+    height: 200px;
+    vertical-align: middle;
+}
