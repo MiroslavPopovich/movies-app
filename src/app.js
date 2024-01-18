@@ -2,6 +2,7 @@ import { render, page } from "./lib.js";
 import { headerTemplate } from "./templates/headerTemplate.js";
 import { footerTemplate } from "./templates/footerTemplate.js";
 import { homeView } from "./views/homeView.js";
+import { catalogueView } from "./views/catalogueView.js";
 
 const headerRoot = document.getElementById("header");
 const mainRoot = document.getElementById("main");
@@ -27,4 +28,5 @@ function decorateContext(ctx, next) {
 
 page(decorateContext);
 page("/", homeView);
+page("/catalogue", catalogueView);
 page.start();
