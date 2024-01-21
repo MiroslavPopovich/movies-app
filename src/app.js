@@ -1,8 +1,10 @@
 import { render, page } from "./lib.js";
 import { headerTemplate } from "./templates/headerTemplate.js";
 import { footerTemplate } from "./templates/footerTemplate.js";
+import { getUserData } from "./services/util.js";
 import { homeView } from "./views/homeView.js";
 import { catalogueView } from "./views/catalogueView.js";
+import { registerView } from "./views/registerView.js";
 
 const headerRoot = document.getElementById("header");
 const mainRoot = document.getElementById("main");
@@ -13,7 +15,8 @@ function loadFooter() {
 }
 
 function loadNav() {
-    render(headerTemplate(), headerRoot);
+    const userData = getUserData();
+    render(headerTemplate(userData), headerRoot);
 }
 
 loadNav();
@@ -29,4 +32,5 @@ function decorateContext(ctx, next) {
 page(decorateContext);
 page("/", homeView);
 page("/catalogue", catalogueView);
+page("/register", registerView);
 page.start();

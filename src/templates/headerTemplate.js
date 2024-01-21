@@ -1,6 +1,6 @@
 import { html } from "../lib.js";
 
-export const headerTemplate = () => html`
+export const headerTemplate = (userData) => html`
     <div class="container">
         <a href="/" class="btn btn-secondary">Home</a>
         <a href="/catalogue?page=1" class="btn btn-secondary">Movies</a>
@@ -16,6 +16,21 @@ export const headerTemplate = () => html`
                 </button>
             </form>
         </div>
-        <nav class="navigation"></nav>
+        <nav class="navigation">
+            <ul>
+                ${userData != null
+                    ? html``
+                    : html`<li>
+                              <a href="/login" class="btn btn-primary">
+                                  Login
+                              </a>
+                          </li>
+                          <li>
+                              <a href="/register" class="btn btn-primary">
+                                  Register
+                              </a>
+                          </li>`}
+            </ul>
+        </nav>
     </div>
 `;
