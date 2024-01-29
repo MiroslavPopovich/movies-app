@@ -93,3 +93,28 @@
 .catalogue-page-nav {
     width: 16rem;
 }
+
+.form section {
+    width: 40%;
+    margin: auto;
+    padding: 2rem;
+    border-radius: var(--BORDER-RADIOS);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 10px;
+    background-color: var(--BGCOLOR-RED);
+}
+
+.btn-center {
+    display: block;
+    margin: 1.5rem auto;
+    width: 35%;
+}
+.field {
+    text-align: center;
+}
+.field a {
+    color: var(--FONT-COLOR-DARK);
+    font-size: 1.2rem;
+}
+.field a:hover {
+    color: var(--FONT-COLOR-GRAY);
+}
