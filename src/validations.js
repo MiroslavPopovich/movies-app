@@ -83,3 +83,28 @@ export function repeatPasswordValidation(fieldValue, password) {
     }
     return repeatPasswordError;
 }
+
+export function emptyFieldsValidation(formData) {
+    const emptyFields = formData.filter(([k, v]) => v.trim() == "");
+    const nonEmptyFields = formData.filter(([k, v]) => v.trim() != "");
+    const emptyErr = emptyFields.reduce(
+        (acc, [k]) => Object.assign(acc, { [k]: true }),
+        {}
+    );
+    const nonEmptyErr = nonEmptyFields.reduce(
+        (acc, [k]) => Object.assign(acc, { [k]: false }),
+        {}
+    );
+
+    const emptyErrMsgs = emptyFields.reduce(
+        (acc, [k]) => Object.assign(acc, { [k]: "The field is required." }),
+        {}
+    );
+    const nonEmptyErrMsgs = nonEmptyFields.reduce(
+        (acc, [k]) => Object.assign(acc, { [k]: "" }),
+        {}
+    );
+    const errors = { ...emptyErr, ...nonEmptyErr };
+    const errorMsgs = { ...emptyErrMsgs, ...nonEmptyErrMsgs };
+    return { errors, errorMsgs, emptyFields };
+}
