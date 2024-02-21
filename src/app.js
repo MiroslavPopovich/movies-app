@@ -7,6 +7,8 @@ import { homeView } from "./views/homeView.js";
 import { catalogueView } from "./views/catalogueView.js";
 import { registerView } from "./views/registerView.js";
 import { loginView } from "./views/loginView.js";
+import { categoryCatalogueView } from "./views/categoryCatalogueView.js";
+import { myCatalogueView } from "./views/myCatalogueView.js";
 
 const headerRoot = document.getElementById("header");
 const mainRoot = document.getElementById("main");
@@ -40,11 +42,8 @@ function loadNav(search) {
 
     function onSearch(event) {
         event.preventDefault();
-
         const formData = new FormData(event.target);
         const searchParam = formData.get("search").trim();
-
-        console.log("search");
     }
 }
 
@@ -61,6 +60,8 @@ function decorateContext(ctx, next) {
 page(decorateContext);
 page("/", homeView);
 page("/catalogue", catalogueView);
+page("/catalogue/:category/:categoryId", categoryCatalogueView);
+page("/myCatalogue", myCatalogueView);
 page("/register", registerView);
 page("/login", loginView);
 page.start();

@@ -42,6 +42,25 @@ function createOption(method = "GET", data) {
 
     return options;
 }
+
+function createPointer(className, objectId) {
+    return {
+        __type: "Pointer",
+        className,
+        objectId,
+    };
+}
+
+function createQuery(query) {
+    return encodeURIComponent(query);
+}
+
+export function createPointerQuery(propName, className, objectId) {
+    return createQuery(
+        `"${propName}": ${JSON.stringify(createPointer(className, objectId))}`
+    );
+}
+
 // POST request
 export async function post(url, data) {
     return request(url, createOption("POST", data));
