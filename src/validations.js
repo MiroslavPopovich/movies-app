@@ -108,3 +108,28 @@ export function emptyFieldsValidation(formData) {
     const errorMsgs = { ...emptyErrMsgs, ...nonEmptyErrMsgs };
     return { errors, errorMsgs, emptyFields };
 }
+
+export function imageFieldValidation(image, fieldName) {
+    const allowedTypes = ["image/jpeg", "image/png"];
+    const allowedSize = 2;
+    const errors = {};
+    const errorMsgs = {};
+    const emptyFields = [];
+    errors[fieldName] = false;
+    errorMsgs[fieldName] = "";
+    let fileSizeMB = image.size / 1024 ** 2;
+    if (image.size == 0) {
+        errors[fieldName] = true;
+        errorMsgs[fieldName] = "The field is required.";
+        emptyFields.push([fieldName, ""]);
+    } else if (!allowedTypes.includes(image.type)) {
+        errors[fieldName] = true;
+        errorMsgs[fieldName] =
+            "Invalid file type. Please upload a JPEG or PNG file.";
+    } else if (fileSizeMB > allowedSize) {
+        errors[fieldName] = true;
+        errorMsgs[fieldName] =
+            "Invalid file size. Please upload a file up to 2MB.";
+    }
+    return { errors, errorMsgs, emptyFields };
+}

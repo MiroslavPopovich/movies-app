@@ -9,6 +9,7 @@ import { registerView } from "./views/registerView.js";
 import { loginView } from "./views/loginView.js";
 import { categoryCatalogueView } from "./views/categoryCatalogueView.js";
 import { myCatalogueView } from "./views/myCatalogueView.js";
+import { createArticleView } from "./views/createArticleView.js";
 
 const headerRoot = document.getElementById("header");
 const mainRoot = document.getElementById("main");
@@ -64,4 +65,5 @@ page("/catalogue/:category/:categoryId", categoryCatalogueView);
 page("/myCatalogue", myCatalogueView);
 page("/register", registerView);
 page("/login", loginView);
+page("/createArticle", createArticleView);
 page.start();

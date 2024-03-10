@@ -1,4 +1,10 @@
-import { get, createPointerQuery } from "./restService.js";
+import { 
+    get,
+    post,
+    createPointerQuery,
+    addOwner,
+    addCategory,
+} from "./restService.js";
 
 export const articlesPerPage = 8;
 const endPoints = {
@@ -15,6 +21,7 @@ const endPoints = {
             "_User",
             ownerId
         )}}&order=-updatedAt&count=1&limit=${articlesPerPage}&skip=`,
+        addArticle: "/classes/Articles",
 };
 
 export async function getAllArticles(page, search) {
@@ -36,4 +43,11 @@ export async function getArticlesByOwner(ownerId, page) {
     let url =
         endPoints.allArticlesByOwnerId(ownerId) + (page - 1) * articlesPerPage;
     return get(url);
+}
+
+export async function addArticle(articleData, ownerId, categoryId) {
+    // profileData item must be object
+    addOwner(articleData, ownerId);
+    addCategory(articleData, categoryId);
+    return post(endPoints.addArticle, articleData); // returns promise
 }

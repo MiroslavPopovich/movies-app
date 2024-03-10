@@ -55,6 +55,16 @@ function createQuery(query) {
     return encodeURIComponent(query);
 }
 
+export function addOwner(record, id) {
+    record.owner = createPointer("_User", id);
+    return record;
+}
+
+export function addCategory(record, id) {
+    record.category = createPointer("Categories", id);
+    return record;
+}
+
 export function createPointerQuery(propName, className, objectId) {
     return createQuery(
         `"${propName}": ${JSON.stringify(createPointer(className, objectId))}`
