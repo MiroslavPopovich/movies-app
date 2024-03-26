@@ -70,7 +70,6 @@ export function registerView(ctx) {
     repeatPasswordField.disabled = true;
 
     async function onChange(event) {
-        console.log("onchage");
         const fieldName = event.target.name;
         const fieldValue = event.target.value;
         if (passwordValidation(fieldName, fieldValue).error) {
@@ -85,7 +84,6 @@ export function registerView(ctx) {
     }
 
     async function onBlur(event) {
-        console.log("oncblur");
         const fieldName = event.target.name;
         const fieldValue = event.target.value;
         try {
@@ -155,12 +153,6 @@ export function registerView(ctx) {
             {}
         );
         const emptyFields = formData.filter(([k, v]) => v == "");
-        // const nonEmptyFields = formData.filter(([k, v]) => v != "");
-        // const nonEmpty = nonEmptyFields.reduce(
-        //     (acc, [k]) => Object.assign(acc, { [k]: false }),
-        //     {}
-        // );
-        // errors = { ...empty, ...nonEmpty };
         try {
             if (emptyFields.length > 0) {
                 errors = emptyFields.reduce(

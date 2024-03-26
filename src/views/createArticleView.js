@@ -78,6 +78,7 @@ export async function createArticleView(ctx) {
                 errors: errors,
                 errorMsgs: errorMsgs,
                 selectTagOptions: selectTagOptions,
+                onBlur: onBlur,
             })
         );
         ctx.render(
@@ -88,6 +89,53 @@ export async function createArticleView(ctx) {
     await update(errors, errorMsgs, serverError);
     const form = document.getElementById(formId);
     form.reset();
+    let unsuccessfulSubmits = 0;
+    
+    function errorHandler(formData, imageObj){
+        const currentErrors = {};
+        const textFieldsErrors = emptyFieldsValidation([...formData]);
+        const fileFieldErros = imageFieldValidation(imageObj, image.name);
+        currentErrors.errors = {
+            ...textFieldsErrors.errors,
+            ...fileFieldErros.errors,
+        };
+        currentErrors.errorMsgs = {
+            ...textFieldsErrors.errorMsgs,
+            ...fileFieldErros.errorMsgs,
+        };
+        currentErrors.emptyFields = [
+            ...textFieldsErrors.emptyFields,
+            ...fileFieldErros.emptyFields,
+        ];
+        errors = currentErrors.errors;
+        errorMsgs = currentErrors.errorMsgs;
+
+        if (currentErrors.emptyFields.length > 0) {
+            unsuccessfulSubmits++;
+            throw {
+                error: new Error(),
+                errors: currentErrors.errors,
+                errorMsgs: currentErrors.errorMsgs,
+                serverError,
+            };
+        }
+
+        update(errors, errorMsgs, serverError);
+    }
+    
+    async function onBlur(event) {
+        if ( unsuccessfulSubmits > 0){
+            const formData = new FormData(event.target.form);
+            const imageObj = formData.get("image");
+            formData.delete("image");
+            try{
+                errorHandler(formData, imageObj);
+                console.log(false);
+            } catch (err) {
+                update(err.errors, err.errorMsgs, serverError);
+            }
+        } 
+    }
 
     async function onSubmit(event) {
         event.preventDefault();
@@ -97,78 +145,51 @@ export async function createArticleView(ctx) {
         let imageBase64 = "";
 
         try {
-            const currentErrors = {};
-            const textFieldsErrors = emptyFieldsValidation([...formData]);
-            const fileFieldErros = imageFieldValidation(imageObj, image.name);
-            currentErrors.errors = {
-                ...textFieldsErrors.errors,
-                ...fileFieldErros.errors,
-            };
-            currentErrors.errorMsgs = {
-                ...textFieldsErrors.errorMsgs,
-                ...fileFieldErros.errorMsgs,
-            };
-            currentErrors.emptyFields = [
-                ...textFieldsErrors.emptyFields,
-                ...fileFieldErros.emptyFields,
-            ];
-            errors = currentErrors.errors;
-            errorMsgs = currentErrors.errorMsgs;
-
-            if (currentErrors.emptyFields.length > 0) {
+            errorHandler(formData, imageObj);
+            await update(errors, errorMsgs, serverError);
+            const hasErrors = Object.values(errors).includes(true);
+            if (!hasErrors) {
+                try {
+                    serverError.error = false;
+                    serverError.errorMsg = "";
+                    const reader = new FileReader();
+                    reader.readAsDataURL(imageObj);
+                    reader.onload = async () => {
+                        imageBase64 = reader.result;
+                        const { title, categoryId, description } = Object.fromEntries(formData);
+                        const articleData = {
+                            title,
+                            description,
+                            image: imageBase64,
+                        };
+                            // const auth = getUserData();
+                        await articleService.addArticle(
+                            articleData,
+                            auth.id,
+                            categoryId
+                        );
+                        event.target.reset();
+                        ctx.page.redirect(`/catalogue`);
+                    };
+                } catch (err) {
+                        serverError.error = true;
+                        serverError.errorMsg = `${err.error}`;
+                }
+                if (serverError.error) {
+                    throw {
+                        error: new Error(),
+                        errors,
+                        errorMsgs,
+                        serverError,
+                    };
+                }
+            } else {
                 throw {
                     error: new Error(),
                     errors: currentErrors.errors,
                     errorMsgs: currentErrors.errorMsgs,
                     serverError,
                 };
-            } else {
-                await update(errors, errorMsgs, serverError);
-                const hasErrors = Object.values(errors).includes(true);
-                if (!hasErrors) {
-                    try {
-                        serverError.error = false;
-                        serverError.errorMsg = "";
-                        const reader = new FileReader();
-                        reader.readAsDataURL(imageObj);
-                        reader.onload = async () => {
-                            imageBase64 = reader.result;
-                            const { title, categoryId, description } =
-                                Object.fromEntries(formData);
-                            const articleData = {
-                                title,
-                                description,
-                                image: imageBase64,
-                            };
-                            // const auth = getUserData();
-                            await articleService.addArticle(
-                                articleData,
-                                auth.id,
-                                categoryId
-                            );
-                            event.target.reset();
-                            ctx.page.redirect(`/catalogue`);
-                        };
-                    } catch (err) {
-                        serverError.error = true;
-                        serverError.errorMsg = `${err.error}`;
-                    }
-                    if (serverError.error) {
-                        throw {
-                            error: new Error(),
-                            errors,
-                            errorMsgs,
-                            serverError,
-                        };
-                    }
-                } else {
-                    throw {
-                        error: new Error(),
-                        errors: currentErrors.errors,
-                        errorMsgs: currentErrors.errorMsgs,
-                        serverError,
-                    };
-                }
             }
         } catch (err) {
             await update(err.errors, err.errorMsgs, err.serverError);

@@ -53,15 +53,14 @@ export const formGroupTemplate = ({
                 <label for="${group.name}">${group.lable}</label>
                 <p>${errorMsgs[group.name]}</p>
                 <textarea
+                    @blur=${onBlur}
                     id=${group.id}
                     name=${group.name}
                     rows="6"
                     class=${"form-field" +
                     (errors[group.name] ? " is-invalid" : "")}
-                    placeholder=${group.placeholder}>
-                    ${group.value}
-                </textarea>
-            `
+                    placeholder=${group.placeholder}></textarea>
+                `
             : null}
     </div>
 `;
