@@ -60,8 +60,18 @@ export function addOwner(record, id) {
     return record;
 }
 
+export function addArticleOwner(record, id) {
+    record.articleOwner = createPointer("_User", id);
+    return record;
+}
+
 export function addCategory(record, id) {
     record.category = createPointer("Categories", id);
+    return record;
+}
+
+export function addArticle(record, id) {
+    record.article = createPointer("Articles", id);
     return record;
 }
 

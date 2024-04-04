@@ -1,6 +1,8 @@
 import { 
     get,
+    put,
     post,
+    del,
     createPointerQuery,
     addOwner,
     addCategory,
@@ -9,6 +11,7 @@ import {
 export const articlesPerPage = 8;
 const endPoints = {
     allArticles: `/classes/Articles?order=-updatedAt&count=1&limit=${articlesPerPage}&skip=`,
+    articleById: (articleId) => `/classes/Articles/${articleId}`,
     allArticlesByCategoryId: (categoryId) =>
         `/classes/Articles?where={${createPointerQuery(
             "category",
@@ -22,6 +25,8 @@ const endPoints = {
             ownerId
         )}}&order=-updatedAt&count=1&limit=${articlesPerPage}&skip=`,
         addArticle: "/classes/Articles",
+        editArticle: "/classes/Articles/",
+        deleteArticle: "/classes/Articles/",
 };
 
 export async function getAllArticles(page, search) {
@@ -30,6 +35,10 @@ export async function getAllArticles(page, search) {
         url += "&where=" + `{"title":{"$regex":"${search}","$options":"i"}}`;
     }
     return get(url);
+}
+
+export async function getArticleById(articleId) {
+    return get(endPoints.articleById(articleId));
 }
 
 export async function getArticlesByCategory(categoryId, page) {
@@ -50,4 +59,12 @@ export async function addArticle(articleData, ownerId, categoryId) {
     addOwner(articleData, ownerId);
     addCategory(articleData, categoryId);
     return post(endPoints.addArticle, articleData); // returns promise
+}
+
+export async function editArticle(articleData, articleId) {
+    return put(endPoints.editArticle + articleId, articleData);
+}
+
+export async function deleteArticle(articleId) {
+    return del(endPoints.deleteArticle + articleId);
 }

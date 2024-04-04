@@ -10,6 +10,8 @@ import { loginView } from "./views/loginView.js";
 import { categoryCatalogueView } from "./views/categoryCatalogueView.js";
 import { myCatalogueView } from "./views/myCatalogueView.js";
 import { createArticleView } from "./views/createArticleView.js";
+import { catalogueCardDetailsView } from "./views/catalogueCardDetailsView.js";
+import { editArticleView } from "./views/editArticleView.js";
 
 const headerRoot = document.getElementById("header");
 const mainRoot = document.getElementById("main");
@@ -66,4 +68,6 @@ page("/myCatalogue", myCatalogueView);
 page("/register", registerView);
 page("/login", loginView);
 page("/createArticle", createArticleView);
+page("/catalogue/:articleId", catalogueCardDetailsView);
+page("/editArticle/:articleId", editArticleView);
 page.start();

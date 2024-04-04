@@ -60,6 +60,7 @@ input[type="file"]::file-selector-button {
 input[type="file"]::file-selector-button:hover {
     background-color: #f3f4f6;
 }
+
 input[type="file"]::file-selector-button:active {
     background-color: #e5e7eb;
 }
@@ -112,11 +113,34 @@ input[type="file"]::file-selector-button:active {
     border: 1px solid transparent;
 }
 
+.btn-del {
+    background-color: var(--BGCOLOR-RED);
+    color: var(--FONT-COLOR-WHITE);
+    border: 1px solid transparent;
+}
+.btn-edit {
+    background-color: var(--BGCOLOR-GREEN);
+    color: var(--FONT-COLOR-WHITE);
+    border: 1px solid transparent;
+}
+
+.btn-back {
+    background-color: rgb(134, 190, 137);
+    color: var(--FONT-COLOR-DARK);
+    border: 1px solid transparent;
+}
+
 .btn-primary:hover,
 .btn-secondary:hover {
     color: var(--FONT-COLOR-DARK);
     /* border: 1px solid var(--FONT-COLOR-WHITE); */
     box-shadow: rgba(255, 255, 255, 0.5) 0px 0px 10px;
+}
+
+.btn-back:hover {
+    background-color: rgb(113, 188, 120);
+    border: 1px solid var(--BGCOLOR-DARK);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
 }
 
 .btn-add:hover {
@@ -130,6 +154,29 @@ input[type="file"]::file-selector-button:active {
     background-color: rgb(19, 132, 150);
     border: 1px solid var(--BGCOLOR-DARK);
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+}
+
+.btn-del:hover {
+    color: var(--FONT-COLOR-WHITE);
+    background-color: rgb(200, 35, 51);
+    border: 1px solid var(--BGCOLOR-DARK);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+}
+
+.btn-edit:hover {
+    color: var(--FONT-COLOR-WHITE);
+    background-color: rgb(15, 106, 15);
+    border: 1px solid var(--BGCOLOR-DARK);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+}
+
+.span-info {
+    font-weight: bold;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border: 1.5px solid rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.05);
 }
 
 .container {
@@ -153,16 +200,22 @@ input[type="file"]::file-selector-button:active {
     max-width: 18rem;
 }
 
-.card-body-s {
-    padding: 0.6rem;
-    flex: 1 1 auto;
-}
-
 .card-img img {
     width: 100%;
     height: 13vw;
     object-fit: cover;
     border-radius: var(--BORDER-RADIOS) var(--BORDER-RADIOS) 0 0;
+}
+
+.card-details-img {
+    width: 52%;
+}
+
+.card-details-img img {
+    width: 100%;
+    height: 56vh;
+    object-fit: cover;
+    border-radius: var(--BORDER-RADIOS);
 }
 
 .card-title {
@@ -175,6 +228,12 @@ input[type="file"]::file-selector-button:active {
     padding: 1.25rem;
     flex: 1 1 auto;
 }
+
+.card-body-s {
+    padding: 0.6rem;
+    flex: 1 1 auto;
+}
+
 .card-footer {
     padding: 1.25rem 1rem;
     background-color: rgba(0, 0, 0, 0.03);

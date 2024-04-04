@@ -49,7 +49,7 @@ export const formTemplate = (
                                     class="btn btn-back btn-center">
                                     Go Back
                                 </button>`}
-                    </div>
+                        </div>
                 </fieldset>
             </form>
         </section>
