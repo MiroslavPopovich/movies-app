@@ -47,10 +47,16 @@ function loadNav(search) {
         event.preventDefault();
         const formData = new FormData(event.target);
         const searchParam = formData.get("search").trim();
+        if (searchParam === "") {
+            page.redirect("/catalogue?page=1");
+        } else {
+            page.redirect(`/catalogue?page=1&search=${searchParam}`);
+        }
     }
 }
 
-loadNav();
+// Loading elements on the page
+loadNav(search);
 loadFooter();
 const searchForm = document.getElementById("search");
 function decorateContext(ctx, next) {
@@ -70,4 +76,5 @@ page("/login", loginView);
 page("/createArticle", createArticleView);
 page("/catalogue/:articleId", catalogueCardDetailsView);
 page("/editArticle/:articleId", editArticleView);
+page("*", loginView); //404Page
 page.start();
